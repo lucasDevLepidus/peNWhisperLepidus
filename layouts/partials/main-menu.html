@@ -1,11 +1,12 @@
 <div id="main-menu" class="main-menu">
   <ul>
-    {{ $current := . }} {{ range .Site.Menus.nav }} {{ $active := or
-    ($current.IsMenuCurrent "nav" .) ($current.HasMenuCurrent "nav" .) }} {{
-    $active = or $active (eq .Name $current.Title) }} {{ $active = or $active
-    (and (eq .Name "Blog") (eq $current.Section "post")) }} {{ $active = or
-    $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-    <a href="{{ .URL }}" class="btn">{{ .Name }}</a>
-    {{ end }}
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.nav }}
+    <li class="menu-item-{{ .Name | lower }}{{ if $currentPage.IsMenuCurrent "main" . }} active{{ end }}">
+      <a href="{{ .URL }}">
+        <span>{{ .Name }}</span>
+      </a>
+    </li>
+    {{end}}
   </ul>
 </div>
